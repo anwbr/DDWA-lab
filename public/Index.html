@@ -15,7 +15,17 @@
 </head>
 <body>
     <div class="container">
-        <button class="btn btn-primary" onclick="DDWAApp.MakeupManager.ElementsEventsProvider.moveToListScopes(); return false;">Get all list</button> <br/><br/>
+            <div class="row">
+                    <button class="btn btn-primary" onclick="DDWAApp.MakeupManager.ElementsEventsProvider.moveToListScopes(); return false;">Get all list</button>
+                    <br>
+                    <br>
+                    <div class="input-group" style="margin-left:65%" id="searchSection">
+                        <input type="text" class="form-control" id="searchinputValue">
+                        <span class="input-group-btn">
+                            <button class="btn btn-primary" type="button" onclick="DDWAApp.Helpers.SearchHelper.searchByValue(); return false;">Ok</button>
+                        </span>
+                    </div>
+                </div>
         <div class="row" id="showPart">
             <table id="scopesList" class="table  table-bordered">
                 <thead>
