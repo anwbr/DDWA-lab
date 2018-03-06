@@ -1,0 +1,49 @@
+﻿<!DOCTYPE html>
+
+<html lang="ru" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title></title>
+    <link rel="stylesheet" href="bootstrap-button-ie-fix.css"> 
+    <link rel="stylesheet" href="bootstrap-grid.css"> 
+    <link rel="stylesheet" href="bootstrap.css"> 
+    <!--<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css"> <!-- Optional theme -->
+    <!--<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap-theme.min.css">-->
+    <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">!-->
+    <script src="Scope.js"></script>
+</head>
+<body>
+    <div class="container">
+        <button class="btn btn-primary" onclick="DDWAApp.MakeupManager.ElementsEventsProvider.moveToListScopes(); return false;">Get all list</button> <br/><br/>
+        <div class="row" id="showPart">
+            <table id="scopesList" class="table  table-bordered">
+                <thead>
+                    <tr>
+                        <th>pin</th>
+                        <th>balance</th>
+                        <th>date of create</th>
+                        <th>change history</th>
+                        <th>type of scope</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+        <div class="row" id="detailsPart">
+            <table id="tableDetails" class="table  table-bordered"></table>
+        </div>
+        <button id="createScope" class="btn btn-primary" onclick="DDWAApp.MakeupManager.ElementsEventsProvider.moveToCreateScopeForm(true); return false;">Create scope</button>
+        <div id="createPart" style="display: none;" class="panel panel-default">
+            <div class="panel-body">
+                    <div id="createButtons" class="btn-group" style="width:100%" role="group" aria-label="Basic example">
+                        <button id="createCalculatedScope" style="width:50%" class="btn btn-primary" onclick="DDWAApp.MakeupManager.ElementsEventsProvider.moveToCreateScopeForm(true); return false;">Calculated scope</button>
+                        <button id="createCumulativeScope" style="width:50%" class="btn btn-primary" onclick="DDWAApp.MakeupManager.ElementsEventsProvider.moveToCreateScopeForm(false); return false;">Cumulative scope</button>
+                    </div>
+                    <form id="formScope" onsubmit="return false;" role="form" novalidate></form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

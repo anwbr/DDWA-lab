@@ -1,0 +1,31 @@
+{
+  "scopes": [
+    {
+      "pin": "1111",
+      "balance": "100",
+      "dateofcreate": "2018 3 6",
+      "changehistory": "2018 3 6",
+      "secretword": "qwerty",
+      "fname": "andrew",
+      "lname": "bakiev",
+      "nationality": "rb",
+      "typeofscope": "true",
+      "persentinrate": "15",
+      "mounth": "9",
+      "id": 1
+    },
+    {
+      "pin": "2222",
+      "balance": "200",
+      "dateofcreate": "2018 3 6",
+      "changehistory": "2018 3 6",
+      "secretword": "valenti",
+      "fname": "valentin",
+      "lname": "lee",
+      "nationality": "rb",
+      "typeofscope": "false",
+      "year": "4",
+      "id": 2
+    }
+  ]
+}
