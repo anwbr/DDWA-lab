@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-var DDWAApp = (function () {
+let DDWAApp = (function () {
 	return {
 		Models: {
             Scope:{},
@@ -12,7 +12,15 @@ var DDWAApp = (function () {
 			FormReader: {},
             ElementsEventsProvider: {},
             ScopesFormValidator: {}
-		},
+        },
+        Mappers: {
+            MapperFactory: {}
+        },
+        Helpers: {
+            ScopeIterator:{},
+            SearchHelper: {},
+            WebScope: {}
+        },
 		ScopesService: {},
 		CONSTANTS: { 
 			SERVICE_URL: 'http://localhost:3000/scopes',
@@ -22,186 +30,182 @@ var DDWAApp = (function () {
             CREATE_PART: 'createPart',
             LIST_PART: 'showPart',
             CREATE_SCOPE_BUTTON: 'createScope',
-            CREATE_BUTTONS_ID: 'createButtons'
+            CREATE_BUTTONS_ID: 'createButtons',
+            SEARCH_INPUT_ID: 'searchinputValue',
+            SEARCH_SECTION_ID: 'searchSection'
 		}
 	};
 })();
 
-DDWAApp.Models.Scope = function (type) {
-	var _id;
-	var _pin;
-	var _balance;
-	var _dateofcreate;
-    var _changehistory;
-    var _typeofscope;
-    var _secretword;
-    var _fname;
-    var _lname;
-    var _nationality;
+DDWAApp.Models.Scope = class {
+    constructor(data, type){
+        this._id = data.id;
+        this._pin = data.pin;
+        this._balance = data.balance;
+        this._dateofcreate = data.dateofcreate;
+        this._changehistory = data.changehistory;
+        this._typeofscope = data.typeofscope;
+        this._secretword = data.secretword;
+        this._fname = data.fname;
+        this._lname = data.lname;
+        this._nationality = data.nationality;
+    }
 
-	this.initialize = function(data){
-		_id = data.id;
-		_pin = data.pin;
-		_balance = data.balance;
-		_dateofcreate = data.dateofcreate;
-        _changehistory = data.changehistory;
-        _typeofscope = data.typeofscope;
-        _fname = data.fname;
-        _lname = data.lname;
-        _nationality = data.nationality;
-        _secretword = data.secretword;
-	}
-
-	this.getId = function () {
-		return _id;
+	get getId(){
+		return this._id;
     }    
 
-	this.getPIN = function () {
-		return _pin;
-	}
-	this.setPIN = function (pin) {
-		_pin = pin;
-	}
-
-	this.getBalance = function () {
-		return _balance;
-	}
-	this.setBalance = function (balance) {
-		_balance = balance;
-	}
-
-	this.getDateOfCreate = function () {
-		return _dateofcreate;
-	}
-	this.setDateOfCreate = function (dateofcreate) {
-		_dateofcreate = dateofcreate;
-	}
-
-	this.getChangeHistory = function () {
-		return _changehistory;
-	}
-	this.setChangeHistory = function (changehistory) {
-		_changehistory = changehistory;
-    }
-
-    this.getTypeOfScope = function () {
-		return _typeofscope;
+	get getPIN(){
+		return this._pin;
     }
     
-	this.setTypeOfScope = function (typeofscope) {
-		_typeofscope = typeofscope;
-    }
-    this.getSecretWord = function () {
-		return _secretword;
+	set setPIN(pin) {
+		this._pin = pin;
 	}
-	this.setSecretWord = function (secretword) {
-		_secretword = secretword;
-    }
-    this.getFName = function () {
-		return _fname;
+
+	get getBalance(){
+		return this._balance;
 	}
-	this.setFName = function (fname) {
-		_fname = fname;
-    }
-    this.getLName = function () {
-		return _lname;
+	set setBalance(balance) {
+		this._balance = balance;
 	}
-	this.setLName = function (lname) {
-		_lname = lname;
-    }
-    this.getNationality = function () {
-		return _nationality;
+
+	get getDateOfCreate(){
+		return this._dateofcreate;
 	}
-	this.setNationality = function (nationality) {
-		_nationality = nationality;
+	set setDateOfCreate(dateofcreate) {
+		this._dateofcreate = dateofcreate;
+	}
+
+	get getChangeHistory(){
+		return this._changehistory;
+	}
+	set setChangeHistory(changehistory) {
+		this._changehistory = changehistory;
+    }
+
+    get getTypeOfScope(){
+		return this._typeofscope;
+    }
+    
+	set setTypeOfScope(typeofscope) {
+		this._typeofscope = typeofscope;
+    }
+    get getSecretWord(){
+		return this._secretword;
+	}
+	set setSecretWord(secretword) {
+		this._secretword = secretword;
+    }
+    get getFName(){
+		return this._fname;
+	}
+	set setFName(fname) {
+		this._fname = fname;
+    }
+    get getLName(){
+		return this._lname;
+	}
+	set setLName(lname) {
+		this._lname = lname;
+    }
+    get getNationality(){
+		return this._nationality;
+	}
+	set setNationality(nationality) {
+		this._nationality = nationality;
 	}
 }
 
-DDWAApp.Models.CalculatedScope = function(data){
-    DDWAApp.Models.Scope.call(this, true);
-
-    var _persentinrate;
-    var _mounth;
-
-	var parentinitialize = this.initialize;
-	this.initialize = function (data) {
-        parentinitialize.call(this, data);
-        _persentinrate = data.persentinrate;
-        _mounth = data.mounth;
+DDWAApp.Models.CalculatedScope = class extends DDWAApp.Models.Scope {
+    constructor(data) {
+        super(data, true);
+        this._persentinrate = data.persentinrate;
+        this._mounth = data.mounth;
     }
     
-    this.getPersentInarate = function () {
-		return _persentinrate;
+    get getPersentInarate(){
+		return this._persentinrate;
     }
     
-	this.setPersentInarate = function (persentinrate) {
-		_persentinrate = persentinrate;
+	set setPersentInarate(persentinrate) {
+		this._persentinrate = persentinrate;
     }
     
-    this.getMounth= function () {
-		return _mounth;
+    get getMounth() {
+		return this._mounth;
     }
     
-	this.setMounth = function (mounth) {
-		_mounth = mounth;
+	set setMounth(mounth) {
+		this._mounth = mounth;
 	}
 }
 
-DDWAApp.Models.CumulativeScope = function(data){
-	DDWAApp.Models.Scope.call(this, false);
-    var _year;
-	var parentInitialize = this.initialize;
-	this.initialize = function (data) {
-        parentInitialize.call(this, data);
-        _year = data.year;
+DDWAApp.Models.CumulativeScope =  class extends DDWAApp.Models.Scope {
+    constructor(data) {
+        super(data, true);
+        this._year = data.year;
     }
-    this.getYear= function () {
-		return _year;
+
+    get getYear() {
+		return this._year;
     }
     
-	this.setYear = function (year) {
-		_year = year;
+	set setYear(year) {
+		this._year = year;
 	}
 }
 
 DDWAApp.MakeupManager.ElementsEventsProvider = function(){
-    var self = this || {};
-    var isUpdateEvent = false;
+    let self = this || {};
+    let isUpdateEvent = false;
 
-    self.moveToScopeDetails = function (id, type) {
+    self.moveToScopeDetails = (id, type) => {
         if (isUpdateEvent === true) {
             isUpdateEvent = false;
             return;
         }
         setDisplaySettings('none', 'none', '', 'none', 'none');
-		DDWAApp.ScopesService.getDetails(id, DDWAApp.MakeupManager.MakeupCreator.createScopeDetails);
-    };
+		DDWAApp.ScopesService.getDetails(id).then((scope)=>{
+            DDWAApp.MakeupManager.MakeupCreator.createScopeDetails(scope);
+        });
+    }
+    
 
-    self.moveToChangeScope = function (id) {
+    self.moveToChangeScope = (id) => {
         isUpdateEvent = true;
         setDisplaySettings('none', '', 'none', 'none', 'none');
-        DDWAApp.ScopesService.getDetails(id, DDWAApp.MakeupManager.MakeupCreator.createScopeForm);
+        DDWAApp.ScopesService.getDetails(id).then((scope)=>{
+            DDWAApp.MakeupManager.MakeupCreator.createScopeForm(scope, true);
+        });
     }
 
-    self.moveToDeleteScope = function (id) {
+    self.moveToDeleteScope = (id) => {
         isUpdateEvent = true;
-        DDWAApp.ScopesService.deleteScope(id);
+        DDWAApp.ScopesService.deleteScope(id).then(function(data){
+            DDWAApp.WorkersService.getAll().then((data)=>{
+                DDWAApp.MakeupManager.MakeupCreator.createScopesTable(data);
+            });
+        });
     }
 
-    self.moveToCreateScopeForm = function (isTypeOfScope) {
+    self.moveToCreateScopeForm = (isTypeOfScope) => {
         setDisplaySettings('none', '', 'none', 'none', '', isTypeOfScope);
-        DDWAApp.MakeupManager.MakeupCreator.createScopeForm(isTypeOfScope ? new DDWAApp.Models.CalculatedScope() : new DDWAApp.Models.CumulativeScope(), false);
+        DDWAApp.MakeupManager.MakeupCreator.createScopeForm(isTypeOfScope ? new DDWAApp.Models.CalculatedScope({}) : new DDWAApp.Models.CumulativeScope({}), false);
     }
 
-    self.moveToListScopes= function () {
+    self.moveToListScopes = () => {
         setDisplaySettings('', 'none', 'none', '', 'none');
-        DDWAApp.ScopesService.getAll();
+        DDWAApp.ScopesService.getAll().then((data)=>{
+            DDWAApp.MakeupManager.MakeupCreator.createScopesTable(data);
+        });
     };
 
-    self.createScope = function (event) {
+    self.createScope = (event) => {
         if (DDWAApp.MakeupManager.ScopesFormValidator.isValidForm(event)) {
-            DDWAApp.ScopesService.addScope(event);
-
+            DDWAApp.ScopesService.addScope(DDWAApp.MakeupManager.FormReader.getDataForm(event)).then(function(data){
+                DDWAApp.MakeupManager.ElementsEventsProvider.moveToListScopes();                
+            });
         } else {
             if (event.preventDefault) event.preventDefault();
         }
@@ -218,90 +222,94 @@ DDWAApp.MakeupManager.ElementsEventsProvider = function(){
 	return self;
 }();
 
-DDWAApp.MakeupManager.MakeupCreator = function () {
+DDWAApp.MakeupManager.MakeupCreator  = function () {
 
-	var self = this || {};
+	let self = this || {};
 
-	self.createScopesTable = function (scopes) {
-        var table = document.getElementById(DDWAApp.CONSTANTS.TABLE_ID);
+	self.createScopesTable = (scopes)=>{
+        let table = document.getElementById(DDWAApp.CONSTANTS.TABLE_ID);
         clearTable(table);
-		for (var i = 0; i < scopes.length; i++) {
-            var tr = document.createElement("tr");
-            tr.setAttribute("onclick", "DDWAApp.MakeupManager.ElementsEventsProvider.moveToScopeDetails(" + scopes[i].getId() +  ", " + scopes[i].getTypeOfScope() + ");return false;");
-            tr.innerHTML = "<td>" + scopes[i].getPIN() + "</td>" +
-                "<td>" + scopes[i].getBalance() + "</td>" +
-                "<td>" + scopes[i].getDateOfCreate() + "</td>" +
-                "<td>" + scopes[i].getChangeHistory() + "</td>" +
-                "<td>" + (scopes[i].getTypeOfScope() == true || scopes[i].getTypeOfScope() == "true" ? "Calculated" : "Cumulative") + "</td>" +
-                "<td><a style='cursor: pointer;' onclick='DDWAApp.MakeupManager.ElementsEventsProvider.moveToChangeScope(" + scopes[i].getId() + ");return false;'>Change</a> " +
-                "<a style='color:red; cursor: pointer;' onclick = 'DDWAApp.MakeupManager.ElementsEventsProvider.moveToDeleteScope(" + scopes[i].getId() + ");return false;'>Delete</a></td>";
+        DDWAApp.Helpers.ScopeIterator.scopes = scopes;       
+        let iterator = DDWAApp.Helpers.ScopeIterator[Symbol.iterator]();
+        for(let scope of DDWAApp.Helpers.ScopeIterator[Symbol.iterator]()){
+            let tr = document.createElement('tr');
+            tr.setAttribute('onclick', "DDWAApp.MakeupManager.ElementsEventsProvider.moveToScopeDetails(" + scope.getId +"," + scope.getTypeOfScope + ");return false;");
+            tr.innerHTML += 
+                "<td>" + scope.getPIN + "</td>"+
+                "<td>" + scope.getBalance + "</td>"+
+                "<td>" + scope.getDateOfCreate + "</td>"+
+                "<td>" + scope.getChangeHistory + "</td>"+
+                "<td>" + (scope.getTypeOfScope == true || scope.getTypeOfScope == "true" ? "Calculated" : "Cumulative") + "</td>"+
+                "<td><a style='cursor: pointer;' onclick='DDWAApp.MakeupManager.ElementsEventsProvider.moveToChangeScope(" + scope.getId + ");return false;'>Change</a>"+
+                "<a style='color:red; cursor: pointer;' onclick = 'DDWAApp.MakeupManager.ElementsEventsProvider.moveToDeleteScope('" + scope.getId + ");return false;'>Delete</a></td>";
+                
             table.tBodies[0].appendChild(tr);
 		}
 	};
 
-	self.createScopeDetails = function (scope) {
-        var table = document.getElementById(DDWAApp.CONSTANTS.DETAILS_TABLE_ID);
-        var inner = "<tr><th>pin</th><td>" + scope.getPIN() + "</td></tr>" +
-            "<tr><th>balance</th><td>" + scope.getBalance() + "</td></tr>" +
-            "<tr><th>date of create</th><td>" + scope.getDateOfCreate() + "</td></tr>" +
-            "<tr><th>change history</th><td>" + scope.getChangeHistory() + "</td></tr>" +
-            "<tr><th>secret word</th><td>" + scope.getSecretWord() + "</td></tr>" +
-            "<tr><th>first name</th><td>" + scope.getFName() + "</td></tr>" +
-            "<tr><th>last name</th><td>" + scope.getLName() + "</td></tr>" +
-            "<tr><th>nationality</th><td>" + scope.getNationality() + "</td></tr>" +
-            "<tr><th>type of scope</th><td>" + (scope.getTypeOfScope() == true || scope.getTypeOfScope() == "true" ? "Calculated" : "Cumulative") + "</td></tr>";
+	self.createScopeDetails = (scope) => {
+        let table = document.getElementById(DDWAApp.CONSTANTS.DETAILS_TABLE_ID);
+        let inner = "<tr><th>pin</th><td>" + scope.getPIN + "</td></tr>" +
+        "<tr><th>balance</th><td>" + scope.getBalance + "</td></tr>" +
+        `<tr><th>date of create</th><td>${scope.getDateOfCreate}</td></tr>` +
+        "<tr><th>change history</th><td>" + scope.getChangeHistory + "</td></tr>" +
+        "<tr><th>secret word</th><td>" + scope.getSecretWord + "</td></tr>" +
+        "<tr><th>first name</th><td>" + scope.getFName + "</td></tr>" +
+        "<tr><th>last name</th><td>" + scope.getLName + "</td></tr>" +
+        "<tr><th>nationality</th><td>" + scope.getNationality + "</td></tr>" +
+        "<tr><th>type of scope</th><td>" + (scope.getTypeOfScope == true || scope.getTypeOfScope == "true" ? "Calculated" : "Cumulative") + "</td></tr>";
         if (scope instanceof DDWAApp.Models.CalculatedScope ) {
             inner += 
-            "<tr><th>persent inrate</th><td>" + scope.getPersentInarate() + "</td></tr>" +
-            "<tr><th>count of mounth</th><td>" + scope.getMounth() + "</td></tr>";
-        }else { inner += "<tr><th>count of year</th><td>" + scope.getYear() + "</td></tr>"; }
+            "<tr><th>persent inrate</th><td>" + scope.getPersentInarate + "</td></tr>" +
+            "<tr><th>count of mounth</th><td>" + scope.getMounth + "</td></tr>";
+        }else { inner += "<tr><th>count of year</th><td>" + scope.getYear + "</td></tr>"; }
         table.innerHTML = inner;
     };
 
-    self.createScopeForm = function (scope, isUpdate) {
-        var form = document.getElementById(DDWAApp.CONSTANTS.FORM_SCOPE_ID);
-        var inner = 
+    self.createScopeForm = (scope, isUpdate) => {
+        let form = document.getElementById(DDWAApp.CONSTANTS.FORM_SCOPE_ID);
+        let inner = 
             '<div class="form-group">'+
             '<label>pin</label >' +
             '<label style="color: red; display: none;"><br/>Value must contain only numbers and count of characters dont exceed 4.</label >' +
-            '<input name="pin" class="form-control" pattern="[0-9][0-9][0-9][0-9]$" type="text" value="' + getValueForField(scope.getPIN()) + '" required/>' +
+            `<input name="pin" class="form-control" pattern="[0-9][0-9][0-9][0-9]$" type="text" value="${getValueForField(scope.getPIN)}" required/>` +
             '</div>' +
             '<div class="form-group">'+
             '<label>balance</label >' +
             '<label style="color: red; display: none;"><br/>Value must contain only numbers and count of characters dont exceed 5 and common value dont exceed 99999.</label >' +
-            '<input name="balance" class="form-control" pattern="^[1-9][0-9]?[0-9]?[0-9]?[0-9]?$|^99999$" type="text" value="' + getValueForField(scope.getBalance()) + '" required/>' +
+            `<input name="balance" class="form-control" pattern="^[1-9][0-9]?[0-9]?[0-9]?[0-9]?$|^99999$" type="text" value="${getValueForField(scope.getBalance)}" required/>` +
             '</div>' +
             '<div class="form-group">'+
             '<label>secret word</label >' +
             '<label style="color: red; display: none;"><br/>Value must contain only symbols and count of characters dont exceed 7.</label >' +
-            '<input name="secretword" class="form-control" pattern="^[A-Za-z]+$" type="text" value="' + getValueForField(scope.getSecretWord()) + '" required maxlength="7"/>' +
+            `<input name="secretword" class="form-control" pattern="^[A-Za-z]+$" type="text" value="${getValueForField(scope.getSecretWord)}" required maxlength="7"/>` +
             '</div>' +
             '<div class="form-group">'+
             '<label>first name</label >' +
             '<label style="color: red; display: none;"><br/>Value must contain only symbols and count of characters dont exceed 8.</label >' +
-            '<input name="fname" class="form-control" pattern="^[A-Za-z]+$" type="text" value="' + getValueForField(scope.getFName()) + '" required maxlength="8"/>' +
+            `<input name="fname" class="form-control" pattern="^[A-Za-z]+$" type="text" value="${getValueForField(scope.getFName)}" required maxlength="8"/>` +
             '</div>' +
             '<div class="form-group">'+
             '<label>last name</label >' +
             '<label style="color: red; display: none;"><br/>Value must contain only symbols and count of characters dont exceed 8.</label >' +
-            '<input name="lname" class="form-control" pattern="^[A-Za-z]+$" type="text" value="' + getValueForField(scope.getLName()) + '" required maxlength="8"/>' +
+            `<input name="lname" class="form-control" pattern="^[A-Za-z]+$" type="text" value="${getValueForField(scope.getLName)}" required maxlength="8"/>` +
             '</div>' +
             '<div class="form-group">'+
             '<label>nationality</label >' +
             '<label style="color: red; display: none;"><br/>Value must contain only symbols and count of symbols must be two.</label >' +
-            '<input name="nationality" class="form-control" pattern="[A-Za-z][A-Za-z]$" type="text" value="' + getValueForField(scope.getNationality()) + '" required/>' +
+            `<input name="nationality" class="form-control" pattern="[A-Za-z][A-Za-z]$" type="text" value="${getValueForField(scope.getNationality)}" required/>` +
             '</div>' ;
             if (scope instanceof DDWAApp.Models.CalculatedScope  ){
                 inner += 
                 '<div class="form-group">'+
                 '<label>persentinrate</label >' +
                 '<label style="color: red; display: none;"><br/>Value must contain only numbers and count of characters dont exceed 3 and common value dont exceed 100.</label >' +
-                '<input name="persentinrate" class="form-control" pattern="^[1-9][0-9]?$|^100$" type="text" value="' + getValueForField(scope.getPersentInarate()) + '" required/>' +
+                `<input name="persentinrate" class="form-control" pattern="^[1-9][0-9]?$|^100$" type="text" value="${getValueForField(scope.getPerseintInarate)}" required/>` +
                 '</div>' +
                 '<div class="form-group">'+
                 '<label>count of mounth</label >' +
                 '<label style="color: red; display: none;"><br/>Value must contain only numbers and count of characters dont exceed 1 and common value dont exceed 9.</label >' +
-                '<input name="mounth" class="form-control" pattern="^[1-9]?$|^9$" type="text" value="' + getValueForField(scope.getMounth()) + '" required/>' +
+                `<input name="mounth" class="form-control" pattern="^[1-9]?$|^9$" type="text" value="${getValueForField(scope.getMounth)}" required/>` +
                 '</div>' +
                 '<div class="form-group">' +
                 '<input class="form-control" name="typeofscope" style="display: none;" value="true"/>' +
@@ -314,13 +322,13 @@ DDWAApp.MakeupManager.MakeupCreator = function () {
                 '<div class="form-group">'+
                 '<label>count of year</label >' +
                 '<label style="color: red; display: none;"><br/>Value must contain only numbers and count of characters dont exceed 1 and common value dont exceed 4.</label >' +
-                '<input name="year" class="form-control" pattern="^[1-4]?$|^4$" type="text" value="' + getValueForField(scope.getYear()) + '" required/>' +
+                `<input name="year" class="form-control" pattern="^[1-4]?$|^4$" type="text" value="${getValueForField(scope.getYear)}" required/>` +
                 '</div>' ;
             }
         if (!isUpdate) {
             inner += '<input type="submit" value="Create"  class="btn btn-default" onclick="DDWAApp.MakeupManager.ElementsEventsProvider.createScope(this.form);" />';
         } else {
-            inner += '<input type="submit" value="Save"  class="btn btn-default" onclick="DDWAApp.ScopesService.updateScope(this.form, ' + scope.getId() + ');" />';
+            inner += `<input type="submit" value="Save"  class="btn btn-default" onclick="DDWAApp.ScopesService.updateScope(this.form, ${scope.getId});" />`;
         }
         form.innerHTML = inner;
     };
@@ -336,12 +344,12 @@ DDWAApp.MakeupManager.MakeupCreator = function () {
 	return self;
 }();
 
-DDWAApp.MakeupManager.FormReader = function () {
-	var self = this || {};
+DDWAApp.MakeupManager.FormReader = function(){
+	let self = this || {};
 
-	self.getDataForm = function (form) {
-        var type = form["typeofscope"].value;
-		var data = {};
+	self.getDataForm = (form) => {
+        let type = form["typeofscope"].value;
+		let data = {};
 
 		if (type == 'true') {
 			data = getDataFormCalculatedScope(form);
@@ -353,9 +361,9 @@ DDWAApp.MakeupManager.FormReader = function () {
 	};
 
 	function getCommonDataFromForm(form) {
-        var d = new Date();
+        let d = new Date();
         
-		var body = {
+		let body = {
 			pin: form["pin"].value,
             balance: form["balance"].value,
             dateofcreate: d.getFullYear() +" "+ (d.getMonth() + 1) +" "+ d.getDate(),
@@ -371,7 +379,7 @@ DDWAApp.MakeupManager.FormReader = function () {
 	};
 
 	function getDataFormCalculatedScope(form) {
-		var data = getCommonDataFromForm(form);
+		let data = getCommonDataFromForm(form);
 
         data.persentinrate = form["persentinrate"].value;
         data.mounth = form["mounth"].value;
@@ -380,7 +388,7 @@ DDWAApp.MakeupManager.FormReader = function () {
 	};
 
 	function getDataFormCumulativeScope(form) {
-        var data = getCommonDataFromForm(form);
+        let data = getCommonDataFromForm(form);
         
         data.year = form["year"].value;
 
@@ -391,13 +399,13 @@ DDWAApp.MakeupManager.FormReader = function () {
 }();
 
 DDWAApp.MakeupManager.ScopesFormValidator = function() {
-    var self = this || {};
+    let self = this || {};
 
-    self.isValidForm = function (event) {
+    self.isValidForm = (event) => {
         event = (event ? event : window.event);
-        var form = event;
-        var field;
-        var formvalid = true;
+        let form = event;
+        let field;
+        let formvalid = true;
 
         for (var i = 0; i < form.elements.length; i++) {
             field = form.elements[i];
@@ -440,7 +448,7 @@ DDWAApp.MakeupManager.ScopesFormValidator = function() {
 
     function LegacyValidation(field) {
 
-        var
+        let
             valid = true,
             val = field.value,
             type = field.getAttribute("type"),
@@ -473,101 +481,183 @@ DDWAApp.MakeupManager.ScopesFormValidator = function() {
     return self;
 } ();
 
-DDWAApp.ScopesService = function () {
-	var self = this || {};
+DDWAApp.Mappers.FactoryMapper = function () {
+    let self = this || {};
 
-	self.deleteScope = function (id) {
-		var url = DDWAApp.CONSTANTS.SERVICE_URL;
-		var xhr = new XMLHttpRequest();
-		xhr.open("DELETE", url + '/' + id, true);
-		xhr.onload = function () {
-			if (xhr.readyState != 4) return;
-			if (xhr.status == 200) {
-				DDWAApp.ScopesService.getAll();
-			}
-		}
-		xhr.send(null);
+    self.mapJSONToScope = (data)=>{
+        let scope;
+        if (data.typeofscope == true || data.typeofscope == 'true') {
+            scope = new DDWAApp.Models.CalculatedScope(data);
+        } else {
+            scope = new DDWAApp.Models.CumulativeScope(data);
+        }
+        return scope;
+    }
+
+    return self;
+}();
+
+DDWAApp.Helpers.ScopeIterator = {
+    scopes: [],
+    [Symbol.iterator]() {
+        return this;
+    },
+    next() {
+        if (this.current === undefined) {
+            this.current = 0
+        } else {
+            this.current++;
+        }
+        if (this.current < this.scopes.length) {
+            return {
+                done: false,
+                value: this.scopes[this.current]
+            };
+        } else {
+            delete this.current;
+            return {
+                done: true
+            };
+        }
+    }
+};
+
+DDWAApp.Helpers.WebWorker = function (){
+    let self = this || {};
+    
+    self.worker= {};
+
+    
+    self.worker = new Worker('./web-worker.js');
+
+    self.worker.addEventListener('message', function(e) {
+        document.getElementById('count').textContent = e.data;
+        localStorage.setItem('DDWAApp_last_update_time', new Date());
+        localStorage.setItem('DDWAApp_last_update_value', e.data);
+    }, false);
+
+    self.start = ()=>{
+        let lastUpdateDate = localStorage.getItem('DDWAApp_last_update_time')? new Date(localStorage.getItem('DDWAApp_last_update_time')) : new Date();
+        let nextUpdateDate =  new Date(lastUpdateDate);
+        nextUpdateDate.setMinutes(lastUpdateDate.getMinutes() + (localStorage.getItem('DDWAApp_last_update_time')? 1: 0));
+
+        document.getElementById('count').innerText = ('' + localStorage.getItem('DDWAApp_last_update_value')) || '';
+
+        if (new Date() >= nextUpdateDate) {
+            startUpdate();
+        } else {
+            setTimeout(startUpdate, getNextTimeStart(lastUpdateDate));
+        }
+    };
+
+    function getNextTimeStart(datetime){
+        debugger;
+        let nextUpdate =  new Date(datetime);
+        nextUpdate.setMinutes(datetime.getMinutes() + 1);
+
+        return nextUpdate - new Date();
+    }
+    function startUpdate(){
+       self. worker.postMessage({'cmd': 'start'});
+    }
+
+    return self;
+}();
+
+
+DDWAApp.Helpers.SearchHelper = function(){
+    let self = this || {};
+
+    self.searchByValue = ()=>{
+        let searchData = document.getElementById(DDWAApp.CONSTANTS.SEARCH_INPUT_ID).value;
+        DDWAApp.ScopesService.getAll().then((data)=>{
+            let scopes = data.filter(item=>{
+                if(item.getFName.includes(searchData) || item.getLName.includes(searchData) || item.getPIN.includes(searchData)  )
+                    return true;
+            });
+
+            DDWAApp.MakeupManager.MakeupCreator.createScopesTable(scopes);
+        });
+    };
+
+    return self;
+}();
+
+DDWAApp.ScopesService = function() {
+	let self = this || {};
+
+	self.deleteScope = async function(id)  {
+        let data = await sendGetMethod('DELETE', '/' + id);
+        return data;
 	};
 
-	self.getAll = function () {
-		var xhr = new XMLHttpRequest();
-		xhr.open('GET', DDWAApp.CONSTANTS.SERVICE_URL, true);
-		xhr.send();
-		xhr.onreadystatechange = function () {
-			if (xhr.readyState != 4) return;
-			if (xhr.status == 200) {
-                var data = JSON.parse(xhr.responseText);    
-				var scopes = [];
-				for (var i = 0; i < data.length; i++) {
-					var scope = createScope(data[i]);
-					scopes.push(scope);
-				}
-				DDWAApp.MakeupManager.MakeupCreator.createScopesTable(scopes);
-			}
-		}
-	};
+	self.getAll = async function() {
+        let data = await sendGetMethod('GET','');
+        let scopes = [];
+        DDWAApp.Helpers.ScopeIterator.scopes = data;
+        for(let item of DDWAApp.Helpers.ScopeIterator[Symbol.iterator]()){
+            let scope = DDWAApp.Mappers.FactoryMapper.mapJSONToScope(item);
+            scopes.push(scope);
+        }
+        return scopes;
+    };
 
-	self.addScope = function (data) {
-		var xhr = new XMLHttpRequest();
-		var body = JSON.stringify(DDWAApp.MakeupManager.FormReader.getDataForm(data));
+	self.addScope = async (data)=>{
+        let result = await sendPostMethod('POST', DDWAApp.CONSTANTS.SERVICE_URL, data);
+        return result;
+};
 
-		xhr.open("POST", DDWAApp.CONSTANTS.SERVICE_URL, true);
-		xhr.setRequestHeader('Content-Type', 'application/json');
-
-		xhr.onreadystatechange = function () {
-			if (xhr.readyState != 4) return;
-			DDWAApp.ScopesService.getAll();
-		};
-
-		xhr.send(body);
-	};
-
-	self.updateScope = function (data, id) {
-		var xhr = new XMLHttpRequest();
-		var body = JSON.stringify(DDWAApp.MakeupManager.FormReader.getDataForm(data));
-
-		xhr.open("PUT", DDWAApp.CONSTANTS.SERVICE_URL + "/" + id, true);
-		xhr.setRequestHeader('Content-Type', 'application/json');
-
-		xhr.onreadystatechange = function () {
-			if (xhr.readyState != 4) return;
-			DDWAApp.ScopesService.getAll();
-		};
-
-		xhr.send(body);
-	};
+	self.updateWorker = async (data, id)=>{
+        let result = await sendPostMethod('PUT', DDWAApp.CONSTANTS.SERVICE_URL +"/"+id, data)
+        return result;
+};
 	
-	self.getDetails = function (id, callback) {
-		var xhr = new XMLHttpRequest();
+	self.getDetails = async (id)=>{
+        let data = await sendGetMethod('GET', '/' + id);
+        let worker = DDWAApp.Mappers.FactoryMapper.mapJSONToScope(data);
+        return worker;
+};
 
-		xhr.open('GET', DDWAApp.CONSTANTS.SERVICE_URL + "/" +id, true);
-		xhr.send();
-		xhr.onreadystatechange = function () {
-			if (xhr.readyState != 4) return;
-			if (xhr.status == 200) {
-				var data = JSON.parse(xhr.responseText);
-				var scope = createScope(data);
+	function sendGetMethod(method, params) {
+        return new Promise((resolve, reject)=>{
+            let xhr = new XMLHttpRequest();
 
-				callback(scope, true);
-			}
-		}
-	};
+            xhr.open(method, DDWAApp.CONSTANTS.SERVICE_URL + params, true);
+            xhr.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
 
-	function createScope(data) {
-		var scope;
-        if (data.typeofscope === true || data.typeofscope === 'true') {
-			scope = new DDWAApp.Models.CalculatedScope();
-			scope.initialize(data);
-		} else {
-			scope = new DDWAApp.Models.CumulativeScope();
-			scope.initialize(data);
-		}
-		return scope;
-	}
+            xhr.send();
+            xhr.onreadystatechange = ()=>{
+                if (xhr.readyState != 4) return;
+                if (xhr.status == 200) {
+                    let data = JSON.parse(xhr.responseText);
+                    resolve(data);
+                }
+            }
+        });
+    }
+
+    function sendPostMethod(method, url, body) {
+        return new Promise((resolve, reject)=>{
+            let xhr = new XMLHttpRequest();
+
+            xhr.open(method, url, true);
+            xhr.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
+
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState != 4) return;
+                resolve(xhr.responseText);
+            };
+
+            xhr.send(JSON.stringify(body));
+        });
+    }
 
 	return self;
 }();
 
 document.addEventListener("DOMContentLoaded", function (event) {
-	DDWAApp.ScopesService.getAll();
+	DDWAApp.ScopesService.getAll().then((data)=>{
+        DDWAApp.MakeupManager.MakeupCreator.createScopesTable(data);
+        DDWAApp.Helpers.WebWorker.start();
+    });
 });
