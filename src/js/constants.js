@@ -1,0 +1,14 @@
+export const SERVICE_URL = 'http://localhost:3000/scopes';
+export const TABLE_ID= 'scopesList';
+export const DETAILS_TABLE_ID= 'tableDetails';
+export const FORM_SCOPE_ID= 'formScope';
+export const CREATE_PART= 'createPart';
+export const LIST_PART= 'showPart';
+export const CREATE_SCOPE_BUTTON= 'createScope';
+export const CREATE_CALCULATED_BUTTON= 'createCalculatedScope';
+export const CREATE_CUMULATIVE_BUTTON= 'createCumulativeScope';
+export const CREATE_BUTTONS_ID= 'createButtons';
+export const SEARCH_INPUT_ID= 'searchinputValue';
+export const SEARCH_SECTION_ID= "searchSection";
+export const MOVE_TO_LIST_BUTTON = 'moveToListButton';
+export const SEARCH_BUTTON = 'searchButton';
