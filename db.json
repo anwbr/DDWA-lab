@@ -1,31 +1,91 @@
 {
-  "scopes": [
+  "workers": [
     {
-      "pin": "1111",
-      "balance": "100",
-      "dateofcreate": "2018 3 6",
-      "changehistory": "2018 3 6",
-      "secretword": "qwerty",
-      "fname": "andrew",
-      "lname": "bakiev",
-      "nationality": "rb",
-      "typeofscope": "true",
-      "persentinrate": "15",
-      "mounth": "9",
-      "id": 1
+      "firstname": "Татьяна",
+      "lastname": "Шиховаааа",
+      "middlename": "фыаввыфа",
+      "type": "false",
+      "position": "Стюардеса",
+      "gender": "М",
+      "isMarried": false,
+      "numberOfHoursInAir": "2401",
+      "oldWorkplaces": "Airdrome3,Airdrome2",
+      "id": 2
     },
     {
-      "pin": "2222",
-      "balance": "200",
-      "dateofcreate": "2018 3 6",
-      "changehistory": "2018 3 6",
-      "secretword": "valenti",
-      "fname": "valentin",
-      "lname": "lee",
-      "nationality": "rb",
-      "typeofscope": "false",
-      "year": "4",
-      "id": 2
+      "firstname": "dsadsad",
+      "lastname": "sadsad",
+      "middlename": "sadsad",
+      "type": "true",
+      "position": "sadsad",
+      "gender": "М",
+      "isMarried": false,
+      "experience": "65786",
+      "salary": "7798",
+      "id": 4
+    },
+    {
+      "firstname": "выфвы",
+      "lastname": "ывыфв",
+      "middlename": "ыфвыф",
+      "type": "true",
+      "position": "ыфвыфв",
+      "gender": "М",
+      "isMarried": false,
+      "experience": "35435",
+      "salary": "343",
+      "id": 5
+    },
+    {
+      "firstname": "ыавып",
+      "lastname": "ыфаыа",
+      "middlename": "выфв",
+      "type": "true",
+      "position": "ыфвыфв",
+      "gender": "М",
+      "isMarried": false,
+      "experience": "35654",
+      "salary": "456546",
+      "startDate": "03/21/2018",
+      "id": 6
+    },
+    {
+      "firstname": "фыа",
+      "lastname": "выа",
+      "middlename": "ываы",
+      "type": "true",
+      "position": "ывавыа",
+      "gender": "М",
+      "isMarried": false,
+      "experience": "435",
+      "salary": "43545",
+      "id": 7
+    },
+    {
+      "firstname": "ыфыф",
+      "lastname": "рпропр",
+      "middlename": "рпроп",
+      "type": "true",
+      "position": "рпопор",
+      "gender": "М",
+      "isMarried": false,
+      "experience": "76786",
+      "salary": "7678",
+      "startDate": "03/20/2018",
+      "id": 8
+    },
+    {
+      "firstname": "ыфвф",
+      "lastname": "цуцйу",
+      "middlename": "цуйцу",
+      "type": "true",
+      "position": "цй",
+      "gender": "М",
+      "isMarried": false,
+      "experience": "4234",
+      "salary": "324324",
+      "startDate": "03/05/2018",
+      "id": 9
     }
   ]
 }

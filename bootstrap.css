@@ -3455,7 +3455,7 @@ tbody.collapse.show {
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  width: 25%;
+  width: 100%;
 }
 
 .input-group .form-control {

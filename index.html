@@ -1,0 +1,64 @@
+﻿<!DOCTYPE html>
+
+<html lang="ru" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title></title>
+</head>
+<body>
+    <div class="container" style="margin-top: 20px;">
+        <div class="row">
+            <div id="logo" style="all:unset"></div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-md-8">
+                <button class="btn btn-primary" id="moveToListButton">Get all list</button>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <h2 style="margin-left:30px">Count of posts: </h2>
+            <h2 id="count"></h2>
+        </div>
+        <div class="row">
+            <div class="col-md-6 offset-md-2">
+                <div id="showPart">
+                    <table id="scopesList" class="table  table-bordered">
+                        <thead>
+                            <tr>
+                                <th data-name="pin">pin</th>
+                                <th data-name="balance">balance</th>
+                                <th data-name="dateofcreate">date of create</th>
+                                <th data-name="fname">first name</th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+        <div class="row" id="detailsPart">
+            <table id="tableDetails" class="table  table-bordered"></table>
+        </div>
+        <button id="createScope" class="btn btn-primary">Create scope</button>
+        <div id="createPart" style="display: none;" class="panel panel-default">
+            <div class="panel-body">
+                <div id="createButtons" class="btn-group" style="width:100%" role="group" aria-label="Basic example">
+                    <button id="createCalculatedScope" style="width:50%" class="btn btn-primary">Calculated scope</button>
+                    <button id="createCumulativeScope" style="width:50%" class="btn btn-primary">Cumulative scope</button>
+                </div>
+                <form id="formScope"  onsubmit="return false;" role="form" novalidate></form>
+            </div>
+        </div>
+         <div class="row">
+                <div id="banner" class="col-md-9 offset-md-2"></div>
+        </div>
+    </div>
+</body>
+</html>
